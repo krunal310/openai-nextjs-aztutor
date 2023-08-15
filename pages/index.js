@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import styles from '../styles/globals.css'
+import styles from '../styles/Home.module.css';
+
 
 export default function Home() {
   const [chatLogs, setChatLogs] = useState([]);
@@ -9,7 +10,7 @@ export default function Home() {
     e.preventDefault();
 
     // Append user message to chat
-    setChatLogs([...chatLogs, { role: 'user', content: userInput }]);
+    setChatLogs(prevLogs => [...prevLogs, { role: 'user', content: userInput }]);
 
     try {
       const res = await fetch('/api/chat', {
@@ -21,13 +22,14 @@ export default function Home() {
       const data = await res.json();
 
       // Append assistant message to chat
-      setChatLogs([...chatLogs, { role: 'user', content: userInput }, { role: 'assistant', content: data.response }]);
+      setChatLogs(prevLogs => [...prevLogs, { role: 'assistant', content: data.response }]);
     } catch (error) {
       console.error("There was an error sending your message", error);
     }
 
     setUserInput('');
   };
+
 
   return (
     <div className={styles.container}>
