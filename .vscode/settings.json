@@ -1,3 +1,5 @@
+
+
 {
     "azureAutomation.directory.basePath": "c:\\Users\\kruna",
     "appService.defaultWebAppToDeploy": "/subscriptions/6d8fa6f8-f938-4278-aa0f-a4b453bab3b9/resourceGroups/EastUS-rg/providers/Microsoft.Web/sites/openai-nextjs-aztutor",
