@@ -1,7 +1,9 @@
 {
+  "/_error": "pages/_error.js",
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/_error": "pages/_error.js",
-  "/": "pages/index.js",
-  "/api/chat": "pages/api/chat.js"
+  "/api/chat": "pages/api/chat.js",
+  "/": "pages/index.html",
+  "/api/hello": "pages/api/hello.js",
+  "/404": "pages/404.html"
 }
