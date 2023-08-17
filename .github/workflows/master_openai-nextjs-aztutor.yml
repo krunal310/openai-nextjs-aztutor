@@ -28,7 +28,7 @@ jobs:
           npm run test --if-
           
       - name: Zip artifact for deployment
-        run: Compress-Archive -Path ./build/* -DestinationPath release.zip
+        run: Compress-Archive -Path $GITHUB_WORKSPACE/build/* -DestinationPath release.zip
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
