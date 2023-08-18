@@ -26,12 +26,15 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+          
+      - name: Zip all files for upload between jobs
+        run: zip next.zip ./* .next -qr
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: next.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,4 +56,8 @@ jobs:
           app-name: 'openai-azuretutor'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F4CB7588186E402D96437C6A559137B9 }}
-          package: .
+          package: next.zip
+          
+      - name: Delete zip file
+        run: rm next.zip
+      
