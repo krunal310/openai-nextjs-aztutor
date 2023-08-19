@@ -1,4 +1,11 @@
+// pages/index.js
+
 import { useState } from 'react';
+import {
+    trackUserMessage,
+    trackBotResponse,
+    trackBotError
+} from '../lib/ai';
 
 export default function Home() {
   const [chatLogs, setChatLogs] = useState([]);
@@ -6,6 +13,9 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Tracking user message
+    trackUserMessage();
 
     setChatLogs(prevLogs => [...prevLogs, { role: 'user', content: userInput }]);
 
@@ -26,10 +36,16 @@ export default function Home() {
       const costDetails = `Response time: ${responseTime} seconds | Cost: ${parseFloat(data.cost).toFixed(6)} USD`;
 
       setChatLogs(prevLogs => [...prevLogs, { role: 'assistant', content: assistantReply, details: costDetails }]);
+      
+      // Tracking successful bot response
+      trackBotResponse('success');
 
     } catch (error) {
       console.error("There was an error sending your message", error);
       setChatLogs(prevLogs => [...prevLogs, { role: 'assistant', content: "Sorry, I'm currently experiencing difficulties. Please try again later." }]);
+      
+      // Tracking bot error
+      trackBotError(error.message);
     }
 
     setUserInput('');
