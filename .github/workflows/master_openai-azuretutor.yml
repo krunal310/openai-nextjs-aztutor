@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy Node.js app to Azure Web App - openai-azuretutor
 
 on:
@@ -26,6 +23,9 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+        env:
+          AZURE_FUNCTION_ENDPOINT: ${{ secrets.AZURE_FUNCTION_ENDPOINT }}
+          NEXT_PUBLIC_APP_INSIGHTS_KEY: ${{ secrets.NEXT_PUBLIC_APP_INSIGHTS_KEY }}
           
       - name: Zip all files for upload between jobs
         run: zip next.zip ./* .next -qr
@@ -57,7 +57,9 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F4CB7588186E402D96437C6A559137B9 }}
           package: next.zip
+        env:
+          AZURE_FUNCTION_ENDPOINT: ${{ secrets.AZURE_FUNCTION_ENDPOINT }}
+          NEXT_PUBLIC_APP_INSIGHTS_KEY: ${{ secrets.NEXT_PUBLIC_APP_INSIGHTS_KEY }}
           
       - name: Delete zip file
         run: rm next.zip
-      
